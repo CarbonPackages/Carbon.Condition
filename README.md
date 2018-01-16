@@ -11,6 +11,59 @@
 
 This package provides some fusion helper for making writing conditions (`@if`) easier.
 
+## [`Carbon.Condition:ContentOnDocument`](Resources/Private/Fusion/Helper/ContentOnDocument.fusion)
+
+Return number of specific content elements found on a document. Example usage:
+
+```js
+value = 'FooBar'
+value.@if.render = Carbon.Condition:ContentOnDocument {
+    nodeType = 'Foo.Bar:NodeType'
+    propertyFilter = '[row != "one"]'
+}
+```
+
+In the example above the value `FooBar` gets only rendered if a NodeType
+`Foo.Bar:NodeType` with the property `row` set not to `one` is on the current document.
+
+### Overview of properties:
+
+| Property                  | Default value                                | Description                                                                                      |
+| ------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `nodeType`                | `'Neos.Neos:Content'`                        | Sets the Content Node Type                                                                       |
+| `node`                    | `${documentNode}`                            | The node as starting point for the query                                                         |
+| `filterContentCollection` | `'[instanceof Neos.Neos:ContentCollection]'` | The filter string for the ContentCollection                                                      |
+| `filterContent`           | `${'[instanceof ' + this.nodeType + ']'}`    | Usually you don't need to change this property. Just in case you want to create advanced queries |
+| `propertyFilter`          | `''`                                         | This string gets appended to the `filterContent`. Example usage see above                        |
+| `backend`                 | `true`                                       | If set to `true`, the value is always return `true` in backend context                           |
+| `live`                    | `false`                                      | If set to `true`, the value is always return `true` in live context                              |
+
+## [`Carbon.Condition:ElementOnDocument`](Resources/Private/Fusion/Helper/ElementOnDocument.fusion)
+
+Return number of specific elements found on a document. Example usage:
+
+```js
+value = 'FooBar'
+value.@if.render = Carbon.Condition:ContentOnDocument {
+    nodeType = 'Foo.Bar:MixinLightbox'
+    propertyFilter = '[lightbox == true]'
+}
+```
+
+In the example above the value `FooBar` gets only rendered if the document has
+the mixin `Foo.Bar:MixinLightbox` with the property `lightbox` set to `true`.
+
+### Overview of properties:
+
+| Property         | Default value                             | Description                                                                                      |
+| ---------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `nodeType`       | `null`                                    | Sets the Node Type                                                                               |
+| `node`           | `${documentNode}`                         | The node as starting point for the query                                                         |
+| `filterElement`  | `${'[instanceof ' + this.nodeType + ']'}` | Usually you don't need to change this property. Just in case you want to create advanced queries |
+| `propertyFilter` | `''`                                      | This string gets appended to the `filterElement`. Example usage see above                        |
+| `backend`        | `true`                                    | If set to `true`, the value is always return `true` in backend context                           |
+| `live`           | `false`                                   | If set to `true`, the value is always return `true` in live context                              |
+
 ## [`Carbon.Condition:Properties`](Resources/Private/Fusion/Helper/Properties.fusion)
 
 Helper for checking if the element should get rendered or not. Example usage:
@@ -33,33 +86,6 @@ has `title` and `image` set.
 | `needAllProperties` | `true`        | If set to `true`, **all** properties have to be set. If it set to `false` only **one** property is needed |
 | `backend`           | `true`        | If set to `true`, the value is always return `true` in backend context                                    |
 | `live`              | `false`       | If set to `true`, the value is always return `true` in live context                                       |
-
-## [`Carbon.Condition:ElementsOnDocument`](Resources/Private/Fusion/Helper/ElementsOnDocument.fusion)
-
-Return number of specific content elements found on a document. Example usage:
-
-```js
-value = 'FooBar'
-value.@if.render = Carbon.Condition:ElementsOnDocument {
-    nodeType = 'Foo.Bar:NodeType'
-    propertyFilter = '[row != "one"]'
-}
-```
-
-In the example above the value `FooBar` gets only rendered if a NodeType
-`Foo.Bar:NodeType` with the property `row` set not to `one` is on the current document.
-
-### Overview of properties:
-
-| Property                  | Default value                                | Description                                                                                      |
-| ------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `nodeType`                | `'Neos.Neos:Content'`                        | Sets the Content Node Type                                                                       |
-| `node`                    | `${documentNode}`                            | The node as starting point for the query                                                         |
-| `filterContentCollection` | `'[instanceof Neos.Neos:ContentCollection]'` | The filter string for the ContentCollection                                                      |
-| `filterContent`           | `${'[instanceof ' + this.nodeType + ']'}`    | Usually you don't need to change this property. Just in case you want to create advanced queries |
-| `propertyFilter`          | `''`                                         | This string gets appended to the `filterContent`. Example usage see above                        |
-| `backend`                 | `true`                                       | If set to `true`, the value is always return `true` in backend context                           |
-| `live`                    | `false`                                      | If set to `true`, the value is always return `true` in live context                              |
 
 ## Installation
 

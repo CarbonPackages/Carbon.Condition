@@ -1,13 +1,12 @@
-// Return number of specific content elements found on a document
-prototype(Carbon.Condition:ElementsOnDocument) < prototype(Neos.Fusion:Value){
-    nodeType = 'Neos.Neos:Content'
+// Return number of specific elements found on a document
+prototype(Carbon.Condition:ElementOnDocument) < prototype(Neos.Fusion:Value){
+    nodeType = null
     node = ${documentNode}
-    filterContentCollection = '[instanceof Neos.Neos:ContentCollection]'
-    filterContent = ${'[instanceof ' + this.nodeType + ']'}
+    filterElement = ${'[instanceof ' + this.nodeType + ']'}
     propertyFilter = ''
 
     backend = true
     live = false
 
-    value = ${(this.backend && node.context.inBackend) || (this.live && node.context.live) || q(this.node).children(this.filterContentCollection).find(this.filterContent + this.propertyFilter).count()}
+    value = ${(this.backend && node.context.inBackend) || (this.live && node.context.live) || q(this.node).find(this.filterElement + this.propertyFilter).count()}
 }
