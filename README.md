@@ -19,7 +19,7 @@ to the require section of your composer.json or run `composer require carbon/con
 ## `Carbon.Condition:Case`
 
 [Link to the fusion file](Resources/Private/Fusion/Helper/Case.fusion)  
-// Return true if a content element or a node type definition is on a document.  
+Return true if a content element or a node type definition is on a document.  
 Example usage:
 
 ```js
