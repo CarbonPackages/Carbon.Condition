@@ -52,17 +52,18 @@ value = 'FooBar'
 value.@if.render = Carbon.Condition:Case {
     content {
         nodeType = 'Foo.Bar:MixinLightbox'
-        propertyFilter = '[lightbox]'
+        propertyFilter = '[lightbox=true]'
     }
     document {
         nodeType = 'Foo.Bar:MixinLightbox'
-        propertyFilter = '[lightbox]'
+        propertyFilter = '[lightbox=true]'
     }
 }
 ```
 
 In the example above the value `FooBar` gets only rendered if the document or a
-content element has the mixin `Foo.Bar:MixinLightbox` with a truthy property `lightbox`.
+content element has the mixin `Foo.Bar:MixinLightbox` and the property `lightbox`
+set to `true`.
 
 ### Default values
 
