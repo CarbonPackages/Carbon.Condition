@@ -16,60 +16,95 @@ This package provides some fusion helper for making writing conditions (`@if`) e
 `Carbon.Condition` is available via packagist. Add `"carbon/condition" : "^1.0"`
 to the require section of your composer.json or run `composer require carbon/condition`.
 
-## `Carbon.Condition:ContentOnDocument`
+## `Carbon.Condition:Case`
 
-[Link to the fusion file](Resources/Private/Fusion/Helper/ContentOnDocument.fusion)  
-Return number of specific content elements found on a document. Example usage:
+[Link to the fusion file](Resources/Private/Fusion/Helper/Case.fusion)  
+// Return true if a content element or a node type definition is on a document.  
+Example usage:
 
 ```js
 value = 'FooBar'
-value.@if.render = Carbon.Condition:ContentOnDocument {
-    nodeType = 'Foo.Bar:NodeType'
-    propertyFilter = '[row != "one"]'
+value.@if.render = Carbon.Condition:Case {
+    content {
+        nodeType = 'Foo.Bar:NodeType'
+        propertyFilter = '[row != "one"]'
+    }
 }
 ```
 
-In the example above the value `FooBar` gets only rendered if a NodeType
+In the example above the value `FooBar` gets only rendered if a content node type
 `Foo.Bar:NodeType` with the property `row` set not to `one` is on the current document.
-
-### Overview of properties:
-
-| Property                  | Default value                                | Description                                                                                      |
-| ------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `nodeType`                | `'Neos.Neos:Content'`                        | Sets the Content Node Type                                                                       |
-| `node`                    | `${documentNode}`                            | The node as starting point for the query                                                         |
-| `filterContentCollection` | `'[instanceof Neos.Neos:ContentCollection]'` | The filter string for the ContentCollection                                                      |
-| `filterContent`           | `${'[instanceof ' + this.nodeType + ']'}`    | Usually you don't need to change this property. Just in case you want to create advanced queries |
-| `propertyFilter`          | `''`                                         | This string gets appended to the `filterContent`. Example usage see above                        |
-| `backend`                 | `true`                                       | If set to `true`, the value is always return `true` in backend context                           |
-| `live`                    | `false`                                      | If set to `true`, the value is always return `true` in live context                              |
-
-## `Carbon.Condition:ElementOnDocument`
-
-[Link to the fusion file](Resources/Private/Fusion/Helper/ElementOnDocument.fusion)  
-Return number of specific elements found on a document. Example usage:
 
 ```js
 value = 'FooBar'
-value.@if.render = Carbon.Condition:ContentOnDocument {
-    nodeType = 'Foo.Bar:MixinLightbox'
-    propertyFilter = '[lightbox == true]'
+value.@if.render = Carbon.Condition:Case {
+    document.nodeType = 'Foo.Bar:MixinNodeType'
 }
 ```
 
 In the example above the value `FooBar` gets only rendered if the document has
-the mixin `Foo.Bar:MixinLightbox` with the property `lightbox` set to `true`.
+the mixin `Foo.Bar:MixinNodeType`.
+
+You can also mix the conditions:
+
+```js
+value = 'FooBar'
+value.@if.render = Carbon.Condition:Case {
+    content {
+        nodeType = 'Foo.Bar:MixinLightbox'
+        propertyFilter = '[lightbox]'
+    }
+    document {
+        nodeType = 'Foo.Bar:MixinLightbox'
+        propertyFilter = '[lightbox]'
+    }
+}
+```
+
+In the example above the value `FooBar` gets only rendered if the document or a
+content element has the mixin `Foo.Bar:MixinLightbox` with a truthy property `lightbox`.
+
+### Default values
+
+```js
+node = ${documentNode}
+
+content {
+    collection = '[instanceof Neos.Neos:ContentCollection]'
+    nodeType = null
+    propertyFilter = ''
+    filter = ${this.nodeType ? ('[instanceof ' + this.nodeType + ']' + this.propertyFilter) : null}
+}
+
+document {
+    nodeType = null
+    propertyFilter = ''
+    filter = ${this.nodeType ? ('[instanceof ' + this.nodeType + ']' + this.propertyFilter) : null}
+}
+
+context {
+    backend = true
+    live = false
+}
+```
 
 ### Overview of properties:
 
-| Property         | Default value                             | Description                                                                                      |
-| ---------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `nodeType`       | `null`                                    | Sets the Node Type                                                                               |
-| `node`           | `${documentNode}`                         | The node as starting point for the query                                                         |
-| `filterElement`  | `${'[instanceof ' + this.nodeType + ']'}` | Usually you don't need to change this property. Just in case you want to create advanced queries |
-| `propertyFilter` | `''`                                      | This string gets appended to the `filterElement`. Example usage see above                        |
-| `backend`        | `true`                                    | If set to `true`, the value is always return `true` in backend context                           |
-| `live`           | `false`                                   | If set to `true`, the value is always return `true` in live context                              |
+| Property                  | Description                                                                                      |
+| ------------------------- | ------------------------------------------------------------------------------------------------ |
+| `node`                    | The node as starting point for the query                                                         |
+|                           |                                                                                                  |
+| `content.nodeType`        | Set the node type                                                                                |
+| `content.propertyFilter`  | This string gets appended to the `content.filter`. Example usage see above                       |
+| `content.collection`      | The filter string for the content collection. _Normally you don't need to change this property._ |
+| `content.filter`          | The filter string for the content element. _Normally you don't need to change this property._    |
+|                           |                                                                                                  |
+| `document.nodeType`       | Set the node type                                                                                |
+| `document.propertyFilter` | This string gets appended to the `document.filter`. Example usage see above                      |
+| `document.filter`         | The filter string for the document element. _Normally you don't need to change this property._   |
+|                           |                                                                                                  |
+| `context.backend`         | If set to `true`, the value is always return `true` in backend context                           |
+| `context.live`            | If set to `true`, the value is always return `true` in live context                              |
 
 ## `Carbon.Condition:Properties`
 
@@ -85,6 +120,20 @@ Helper for checking if the element should get rendered or not. Example usage:
 In the example above the condition is only get `true` if the node
 has `title` and `image` set.
 
+### Default values
+
+```
+node = ${node}
+
+properties = null
+needAllProperties = true
+
+context {
+    backend = true
+    live = false
+}
+```
+
 ### Overview of properties:
 
 | Property            | Default value | Description                                                                                               |
@@ -92,8 +141,8 @@ has `title` and `image` set.
 | `node`              | `${node}`     | The node as starting point for the query                                                                  |
 | `properties`        | `false`       | Set the needed properties as comma seperated string. You can mix string and object based properties.      |
 | `needAllProperties` | `true`        | If set to `true`, **all** properties have to be set. If it set to `false` only **one** property is needed |
-| `backend`           | `true`        | If set to `true`, the value is always return `true` in backend context                                    |
-| `live`              | `false`       | If set to `true`, the value is always return `true` in live context                                       |
+| `context.backend`   | `true`        | If set to `true`, the value is always return `true` in backend context                                    |
+| `context.live`      | `false`       | If set to `true`, the value is always return `true` in live context                                       |
 
 ## License
 

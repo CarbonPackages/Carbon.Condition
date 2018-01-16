@@ -2,42 +2,41 @@
 
 prototype(Carbon.Condition:Properties) < prototype(Neos.Fusion:Value) {
     node = ${node}
-    live = false
-    backend = true
+
     // Comma seperated string
-    properties = false
+    properties = null
     needAllProperties = true
+
+    context = Neos.Fusion:RawArray {
+        backend = true
+        live = false
+    }
 
     @context {
         node = ${this.node}
-        live = ${this.live}
-        backend = ${this.backend}
-        needAllProperties = ${this.needAllProperties}
         properties = ${this.properties}
+        needAllProperties = ${this.needAllProperties}
+        context = ${this.context}
     }
 
-    value = Neos.Fusion:Case {
-        inBackend {
-            condition = ${backend && node.context.inBackend}
-            renderer = true
-        }
-        isLive {
-            condition = ${live && node.context.live}
-            renderer = true
-        }
-        properties {
-            condition = ${Type.isString(properties)}
-            renderer = Neos.Fusion:Value {
-                array = Neos.Fusion:RawCollection {
-                    collection = ${String.split(String.replace(properties, ' ', ''), ',')}
-                    itemRenderer = ${q(node).property(item) ? true : false}
-                }
-                value = ${needAllProperties ? Array.indexOf(this.array, false) == -1 : Array.indexOf(this.array, true) != -1}
+    @ignoreProperties = ${['node','properties','needAllProperties','context']}
+
+    correctContext {
+        condition = ${(context.live && node.context.live) || (context.backend && node.context.inBackend)}
+        renderer = true
+    }
+    hasProperties {
+        condition = ${Type.isString(properties)}
+        renderer = Neos.Fusion:Value {
+            array = Neos.Fusion:RawCollection {
+                collection = ${String.split(String.replace(properties, ' ', ''), ',')}
+                itemRenderer = ${q(node).property(item) ? true : false}
             }
+            value = ${needAllProperties ? Array.indexOf(this.array, false) == -1 : Array.indexOf(this.array, true) != -1}
         }
-        default {
-            condition = true
-            renderer = false
-        }
+    }
+    default {
+        condition = true
+        renderer = false
     }
 }

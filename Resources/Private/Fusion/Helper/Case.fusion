@@ -1,0 +1,50 @@
+// Return true if a content element or a node type definition is on a document
+
+prototype(Carbon.Condition:Case) <  prototype(Neos.Fusion:Case) {
+    node = ${documentNode}
+
+    content = Neos.Fusion:RawArray {
+        collection = '[instanceof Neos.Neos:ContentCollection]'
+        nodeType = null
+        propertyFilter = ''
+        filter = ${this.nodeType ? ('[instanceof ' + this.nodeType + ']' + this.propertyFilter) : null}
+    }
+
+    document = Neos.Fusion:RawArray {
+        nodeType = null
+        propertyFilter = ''
+        filter = ${this.nodeType ? ('[instanceof ' + this.nodeType + ']' + this.propertyFilter) : null}
+    }
+
+    context = Neos.Fusion:RawArray {
+        backend = true
+        live = false
+    }
+
+    @context {
+        node = ${this.node}
+        content = ${this.content}
+        document = ${this.document}
+        context = ${this.context}
+    }
+
+    @ignoreProperties = ${['node','content','document','context']}
+
+
+    onContent {
+        condition = ${content.filter && content.collection && q(node).children(content.collection).find(content.filter).is()}
+        renderer = true
+    }
+    onDocument {
+        condition = ${document.filter && q(node).filter(document.filter).is()}
+        renderer = true
+    }
+    correctContext {
+        condition = ${(context.live && node.context.live) || (context.backend && node.context.inBackend)}
+        renderer = true
+    }
+    default {
+        condition = true
+        renderer = false
+    }
+}
