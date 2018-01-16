@@ -11,8 +11,14 @@
 
 This package provides some fusion helper for making writing conditions (`@if`) easier.
 
-## [`Carbon.Condition:ContentOnDocument`](Resources/Private/Fusion/Helper/ContentOnDocument.fusion)
+## Installation
 
+`Carbon.Condition` is available via packagist. Add `"carbon/condition" : "^1.0"`
+to the require section of your composer.json or run `composer require carbon/condition`.
+
+## `Carbon.Condition:ContentOnDocument`
+
+[Link to the fusion file](Resources/Private/Fusion/Helper/ContentOnDocument.fusion)
 Return number of specific content elements found on a document. Example usage:
 
 ```js
@@ -38,8 +44,9 @@ In the example above the value `FooBar` gets only rendered if a NodeType
 | `backend`                 | `true`                                       | If set to `true`, the value is always return `true` in backend context                           |
 | `live`                    | `false`                                      | If set to `true`, the value is always return `true` in live context                              |
 
-## [`Carbon.Condition:ElementOnDocument`](Resources/Private/Fusion/Helper/ElementOnDocument.fusion)
+## `Carbon.Condition:ElementOnDocument`
 
+[Link to the fusion file](Resources/Private/Fusion/Helper/ElementOnDocument.fusion)
 Return number of specific elements found on a document. Example usage:
 
 ```js
@@ -64,8 +71,9 @@ the mixin `Foo.Bar:MixinLightbox` with the property `lightbox` set to `true`.
 | `backend`        | `true`                                    | If set to `true`, the value is always return `true` in backend context                           |
 | `live`           | `false`                                   | If set to `true`, the value is always return `true` in live context                              |
 
-## [`Carbon.Condition:Properties`](Resources/Private/Fusion/Helper/Properties.fusion)
+## `Carbon.Condition:Properties`
 
+[Link to the fusion file](Resources/Private/Fusion/Helper/Properties.fusion)
 Helper for checking if the element should get rendered or not. Example usage:
 
 ```js
@@ -86,11 +94,6 @@ has `title` and `image` set.
 | `needAllProperties` | `true`        | If set to `true`, **all** properties have to be set. If it set to `false` only **one** property is needed |
 | `backend`           | `true`        | If set to `true`, the value is always return `true` in backend context                                    |
 | `live`              | `false`       | If set to `true`, the value is always return `true` in live context                                       |
-
-## Installation
-
-`Carbon.Condition` is available via packagist. Add `"carbon/condition" : "^1.0"`
-to the require section of your composer.json or run `composer require carbon/condition`.
 
 ## License
 
