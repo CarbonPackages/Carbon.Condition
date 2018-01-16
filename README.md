@@ -18,7 +18,7 @@ to the require section of your composer.json or run `composer require carbon/con
 
 ## `Carbon.Condition:ContentOnDocument`
 
-[Link to the fusion file](Resources/Private/Fusion/Helper/ContentOnDocument.fusion)
+[Link to the fusion file](Resources/Private/Fusion/Helper/ContentOnDocument.fusion)  
 Return number of specific content elements found on a document. Example usage:
 
 ```js
@@ -46,7 +46,7 @@ In the example above the value `FooBar` gets only rendered if a NodeType
 
 ## `Carbon.Condition:ElementOnDocument`
 
-[Link to the fusion file](Resources/Private/Fusion/Helper/ElementOnDocument.fusion)
+[Link to the fusion file](Resources/Private/Fusion/Helper/ElementOnDocument.fusion)  
 Return number of specific elements found on a document. Example usage:
 
 ```js
@@ -73,7 +73,7 @@ the mixin `Foo.Bar:MixinLightbox` with the property `lightbox` set to `true`.
 
 ## `Carbon.Condition:Properties`
 
-[Link to the fusion file](Resources/Private/Fusion/Helper/Properties.fusion)
+[Link to the fusion file](Resources/Private/Fusion/Helper/Properties.fusion)  
 Helper for checking if the element should get rendered or not. Example usage:
 
 ```js
