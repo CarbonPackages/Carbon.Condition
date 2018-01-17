@@ -1,11 +1,15 @@
 // Helper for checking if the element should get rendered or not
 
-prototype(Carbon.Condition:Properties) < prototype(Neos.Fusion:Value) {
+prototype(Carbon.Condition:Properties) < prototype(Neos.Fusion:Case) {
     node = ${node}
 
     // Comma seperated string
     properties = null
-    needAllProperties = true
+    // can be OR, AND, &&, ||
+    operator = 'AND'
+    operator.@process.trimAndLowerCase = ${String.trim(String.toLowerCase(value))}
+
+    needAllProperties = ${this.operator == 'and' || this.operator == '&&' ? true : false}
 
     context = Neos.Fusion:RawArray {
         backend = true
@@ -19,7 +23,7 @@ prototype(Carbon.Condition:Properties) < prototype(Neos.Fusion:Value) {
         context = ${this.context}
     }
 
-    @ignoreProperties = ${['node','properties','needAllProperties','context']}
+    @ignoreProperties = ${['node','properties','operator','needAllProperties','context']}
 
     correctContext {
         condition = ${(context.live && node.context.live) || (context.backend && node.context.inBackend)}
