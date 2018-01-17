@@ -9,7 +9,8 @@
 
 # Carbon.Condition Package for Neos CMS
 
-This package provides some fusion helper for making writing conditions (`@if`) easier.
+This package provides some fusion helper for making writing conditions (`@if`) easier. 
+You can look at a real world example [here](https://github.com/jonnitto/Jonnitto.Plyr/blob/master/Resources/Private/Fusion/Prototypes/IncludeCase.fusion)
 
 ## Installation
 
