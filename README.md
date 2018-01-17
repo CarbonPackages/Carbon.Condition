@@ -9,7 +9,7 @@
 
 # Carbon.Condition Package for Neos CMS
 
-This package provides some fusion helper for making writing conditions (`@if`) easier. 
+This package provides some fusion helper for making writing conditions (`@if`) easier.  
 You can look at a real world example [here](https://github.com/jonnitto/Jonnitto.Plyr/blob/master/Resources/Private/Fusion/Prototypes/IncludeCase.fusion)
 
 ## Installation
@@ -71,6 +71,8 @@ set to `true`.
 ```js
 node = ${documentNode}
 
+enabled = true
+
 content {
     collection = '[instanceof Neos.Neos:ContentCollection]'
     nodeType = null
@@ -95,6 +97,7 @@ context {
 | Property                  | Description                                                                                      |
 | ------------------------- | ------------------------------------------------------------------------------------------------ |
 | `node`                    | The node as starting point for the query                                                         |
+| `enabled`                 | If set to `false`, it return always `false`                                                      |
 |                           |                                                                                                  |
 | `content.nodeType`        | Set the node type                                                                                |
 | `content.propertyFilter`  | This string gets appended to the `content.filter`. Example usage see above                       |
@@ -128,7 +131,7 @@ has `title` and `image` set.
 node = ${node}
 
 properties = null
-needAllProperties = true
+operator = 'AND'
 
 context {
     backend = true

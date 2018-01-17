@@ -3,6 +3,8 @@
 prototype(Carbon.Condition:Case) <  prototype(Neos.Fusion:Case) {
     node = ${documentNode}
 
+    enabled = true
+
     content = Neos.Fusion:RawArray {
         collection = '[instanceof Neos.Neos:ContentCollection]'
         nodeType = null
@@ -23,14 +25,18 @@ prototype(Carbon.Condition:Case) <  prototype(Neos.Fusion:Case) {
 
     @context {
         node = ${this.node}
+        enabled = ${this.enabled}
         content = ${this.content}
         document = ${this.document}
         context = ${this.context}
     }
 
-    @ignoreProperties = ${['node','content','document','context']}
+    @ignoreProperties = ${['node','enabled','content','document','context']}
 
-
+    isNotEnabled {
+        condition = ${enabled == false}
+        renderer = false
+    }
     onContent {
         condition = ${content.filter && content.collection && q(node).children(content.collection).find(content.filter).is()}
         renderer = true
