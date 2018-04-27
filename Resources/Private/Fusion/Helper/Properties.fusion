@@ -16,27 +16,22 @@ prototype(Carbon.Condition:Properties) < prototype(Neos.Fusion:Case) {
         live = false
     }
 
-    @context {
-        node = ${this.node}
-        properties = ${this.properties}
-        needAllProperties = ${this.needAllProperties}
-        context = ${this.context}
-    }
+    @context.props = ${this}
 
     @ignoreProperties = ${['node','properties','operator','needAllProperties','context']}
 
     correctContext {
-        condition = ${(context.live && node.context.live) || (context.backend && node.context.inBackend)}
+        condition = ${(props.context.live && props.node.context.live) || (props.context.backend && props.node.context.inBackend)}
         renderer = true
     }
     hasProperties {
-        condition = ${Type.isString(properties)}
+        condition = ${Type.isString(props.properties)}
         renderer = Neos.Fusion:Value {
             array = Neos.Fusion:RawCollection {
-                collection = ${String.split(String.replace(properties, ' ', ''), ',')}
-                itemRenderer = ${q(node).property(item) ? true : false}
+                collection = ${String.split(String.replace(props.properties, ' ', ''), ',')}
+                itemRenderer = ${q(props.node).property(item) ? true : false}
             }
-            value = ${needAllProperties ? Array.indexOf(this.array, false) == -1 : Array.indexOf(this.array, true) != -1}
+            value = ${props.needAllProperties ? Array.indexOf(this.array, false) == -1 : Array.indexOf(this.array, true) != -1}
         }
     }
     default {

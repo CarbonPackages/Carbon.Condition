@@ -23,30 +23,24 @@ prototype(Carbon.Condition:Case) <  prototype(Neos.Fusion:Case) {
         live = false
     }
 
-    @context {
-        node = ${this.node}
-        enabled = ${this.enabled}
-        content = ${this.content}
-        document = ${this.document}
-        context = ${this.context}
-    }
+    @context.props = ${this}
 
     @ignoreProperties = ${['node','enabled','content','document','context']}
 
     isNotEnabled {
-        condition = ${enabled == false}
+        condition = ${props.enabled == false}
         renderer = false
     }
     onContent {
-        condition = ${content.filter && content.collection && q(node).children(content.collection).find(content.filter).is()}
+        condition = ${props.content.filter && props.content.collection && q(props.node).children(props.content.collection).find(props.content.filter).is()}
         renderer = true
     }
     onDocument {
-        condition = ${document.filter && q(node).filter(document.filter).is()}
+        condition = ${props.document.filter && q(props.node).filter(props.document.filter).is()}
         renderer = true
     }
     correctContext {
-        condition = ${(context.live && node.context.live) || (context.backend && node.context.inBackend)}
+        condition = ${(props.context.live && props.node.context.live) || (props.context.backend && props.node.context.inBackend)}
         renderer = true
     }
     default {
