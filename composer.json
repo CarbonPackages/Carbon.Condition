@@ -1,27 +1,34 @@
 {
     "name": "carbon/condition",
-    "type": "neos-plugin",
+    "type": "neos-carbon",
+    "description":
+        "This package provides some fusion helper for making writing conditions (`@if`) easier.",
     "license": "MIT",
-    "description": "This package provides some fusion helper for making writing conditions (`@if`) easier.",
-    "keywords": ["flow", "neos", "fusion", "helper", "condition"],
+    "keywords": ["flow", "neos", "fusion", "helper", "condition", "carbon"],
+    "require": {
+        "neos/neos": "~3.0 || ~4.0"
+    },
     "authors": [
         {
             "name": "Jon Uhlmann",
             "email": "me@jonnitto.ch",
-            "homepage": "https://twitter.com/jonnitto",
+            "homepage": "https://jonnitto.ch",
             "role": "Developer"
         }
     ],
-    "require": {
-        "neos/neos": "~3.0 || ~4.0"
+    "archive": {
+        "exclude": [
+            ".editorconfig",
+            ".gitattributes",
+            ".github",
+            ".gitignore",
+            "CODE_OF_CONDUCT.md"
+        ]
     },
     "autoload": {
         "psr-4": {
             "Carbon\\Condition\\": "Classes"
         }
-    },
-    "archive": {
-        "exclude": [".editorconfig", ".github", ".gitattributes", "CODE_OF_CONDUCT.md"]
     },
     "extra": {
         "marketplace-account": "me@jonnitto.ch",
