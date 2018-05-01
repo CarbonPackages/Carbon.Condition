@@ -21,7 +21,7 @@ to the require section of your composer.json or run `composer require carbon/con
 Return true if a content element or a node type definition is on a document.  
 Example usage:
 
-```js
+```elm
 value = 'FooBar'
 value.@if.render = Carbon.Condition:Case {
     content {
@@ -34,7 +34,7 @@ value.@if.render = Carbon.Condition:Case {
 In the example above the value `FooBar` gets only rendered if a content node type
 `Foo.Bar:NodeType` with the property `row` set not to `one` is on the current document.
 
-```js
+```elm
 value = 'FooBar'
 value.@if.render = Carbon.Condition:Case {
     document.nodeType = 'Foo.Bar:MixinNodeType'
@@ -46,7 +46,7 @@ the mixin `Foo.Bar:MixinNodeType`.
 
 You can also mix the conditions:
 
-```js
+```elm
 value = 'FooBar'
 value.@if.render = Carbon.Condition:Case {
     content {
@@ -66,7 +66,7 @@ set to `true`.
 
 ### Default values
 
-```js
+```elm
 node = ${documentNode}
 
 enabled = true
@@ -114,7 +114,7 @@ context {
 [Link to the fusion file](Resources/Private/Fusion/Helper/Properties.fusion)  
 Helper for checking if the element should get rendered or not. Example usage:
 
-```js
+```elm
 @if.render = Carbon.Condition:Properties {
     properties = 'title,image'
 }
@@ -125,7 +125,7 @@ has `title` and `image` set.
 
 ### Default values
 
-```
+```elm
 node = ${node}
 
 properties = null
