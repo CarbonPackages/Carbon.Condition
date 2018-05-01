@@ -1,11 +1,9 @@
 [![Latest Stable Version](https://poser.pugx.org/carbon/condition/v/stable)](https://packagist.org/packages/carbon/condition)
 [![Total Downloads](https://poser.pugx.org/carbon/condition/downloads)](https://packagist.org/packages/carbon/condition)
 [![License](https://poser.pugx.org/carbon/condition/license)](LICENSE)
-[![GitHub forks](https://img.shields.io/github/forks/jonnitto/Carbon.Condition.svg?style=social&label=Fork)](https://github.com/jonnitto/Carbon.Condition/fork)
-[![GitHub stars](https://img.shields.io/github/stars/jonnitto/Carbon.Condition.svg?style=social&label=Stars)](https://github.com/jonnitto/Carbon.Condition/stargazers)
-[![GitHub watchers](https://img.shields.io/github/watchers/jonnitto/Carbon.Condition.svg?style=social&label=Watch)](https://github.com/jonnitto/Carbon.Condition/subscription)
-[![GitHub followers](https://img.shields.io/github/followers/jonnitto.svg?style=social&label=Follow)](https://github.com/jonnitto/followers)
-[![Follow Jon on Twitter](https://img.shields.io/twitter/follow/jonnitto.svg?style=social&label=Follow)](https://twitter.com/jonnitto)
+[![GitHub forks](https://img.shields.io/github/forks/CarbonPackages/Carbon.Condition.svg?style=social&label=Fork)](https://github.com/CarbonPackages/Carbon.Condition/fork)
+[![GitHub stars](https://img.shields.io/github/stars/CarbonPackages/Carbon.Condition.svg?style=social&label=Stars)](https://github.com/CarbonPackages/Carbon.Condition/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/CarbonPackages/Carbon.Condition.svg?style=social&label=Watch)](https://github.com/CarbonPackages/Carbon.Condition/subscription)
 
 # Carbon.Condition Package for Neos CMS
 
