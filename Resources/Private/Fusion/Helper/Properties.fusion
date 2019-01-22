@@ -34,7 +34,11 @@ prototype(Carbon.Condition:Properties) < prototype(Neos.Fusion:Case) {
         renderer = Neos.Fusion:Value {
             array = Neos.Fusion:RawCollection {
                 collection = ${String.split(String.replace(properties, ' ', ''), ',')}
-                itemRenderer = ${q(node).property(item) ? true : false}
+                itemRenderer = ${q(node).property(item)}
+                itemRenderer.@process {
+                    trimIfString = ${Type.isString(value) ? String.trim(String.replace(String.stripTags(value), '&nbsp;', '')) : value}
+                    returnBool = ${value ? true : false}
+                }
             }
             value = ${needAllProperties ? Array.indexOf(this.array, false) == -1 : Array.indexOf(this.array, true) != -1}
         }
