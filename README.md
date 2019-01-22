@@ -143,7 +143,7 @@ context {
 | ----------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `node`            | `${node}`     | The node as starting point for the query                                                                                      |
 | `properties`      | `false`       | Set the needed properties as comma seperated string. You can mix string and object based properties.                          |
-| `operator`        | `'AND'`       | If set to `'AND'` or `'&&'`, **all** properties have to be set. If it set to `'OR'` or `'||'` only **one** property is needed |
+| `operator`        | `'AND'`       | If set to `'AND'` or `'&&'`, **all** properties have to be set. If it set to `'OR'` or `'\|\|'` only **one** property is needed |
 |                   |               |                                                                                                                               |
 | `context.backend` | `true`        | If set to `true`, the value is always return `true` in backend context                                                        |
 | `context.live`    | `false`       | If set to `true`, the value is always return `true` in live context                                                           |
