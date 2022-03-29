@@ -1,10 +1,16 @@
 {
     "name": "carbon/condition",
     "type": "neos-carbon",
-    "description":
-        "This package provides some fusion helper for making writing conditions (`@if`) easier.",
-    "license": "MIT",
-    "keywords": ["flow", "neos", "fusion", "helper", "condition", "carbon"],
+    "description": "This package provides some fusion helper for making writing conditions (`@if`) easier.",
+    "license": "GPL-3.0",
+    "keywords": [
+        "flow",
+        "neos",
+        "fusion",
+        "helper",
+        "condition",
+        "carbon"
+    ],
     "require": {
         "neos/neos": "~3.0 || ~4.0 || ~5.0 || ~7.0"
     },

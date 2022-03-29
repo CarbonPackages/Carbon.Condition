@@ -147,7 +147,3 @@ context {
 |                   |               |                                                                                                                               |
 | `context.backend` | `true`        | If set to `true`, the value is always return `true` in backend context                                                        |
 | `context.live`    | `false`       | If set to `true`, the value is always return `true` in live context                                                           |
-
-## License
-
-Licensed under MIT, see [LICENSE](LICENSE)
