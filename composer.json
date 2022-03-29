@@ -17,8 +17,8 @@
     "authors": [
         {
             "name": "Jon Uhlmann",
-            "email": "me@jonnitto.ch",
-            "homepage": "https://jonnitto.ch",
+            "email": "hello@uhlmann.pro",
+            "homepage": "https://www.uhlmann.pro",
             "role": "Developer"
         }
     ],
@@ -37,7 +37,6 @@
         }
     },
     "extra": {
-        "marketplace-account": "me@jonnitto.ch",
         "installer-name": "Carbon.Condition",
         "neos": {
             "package-key": "Carbon.Condition"
