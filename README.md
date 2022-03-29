@@ -12,7 +12,7 @@ You can look at a real world example [here](https://github.com/jonnitto/Jonnitto
 
 ## Installation
 
-`Carbon.Condition` is available via packagist. Add `"carbon/condition" : "^1.0"`
+`Carbon.Condition` is available via packagist. Add `"carbon/condition" : "^2.0"`
 to the require section of your composer.json or run `composer require carbon/condition`.
 
 ## `Carbon.Condition:Case`

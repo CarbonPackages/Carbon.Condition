@@ -1,6 +1,6 @@
 // Helper for checking if the element should get rendered or not
 
-prototype(Carbon.Condition:Properties) < prototype(Neos.Fusion:Case) {
+prototype(Carbon.Condition:Properties)  < prototype(Neos.Fusion:Component) {
     node = ${node}
 
     // Comma seperated string
@@ -9,42 +9,35 @@ prototype(Carbon.Condition:Properties) < prototype(Neos.Fusion:Case) {
     operator = 'AND'
     operator.@process.trimAndLowerCase = ${String.trim(String.toLowerCase(value))}
 
-    needAllProperties = ${this.operator == 'and' || this.operator == '&&' ? true : false}
-
-    context = Neos.Fusion:RawArray {
+    context = Neos.Fusion:DataStructure {
         backend = true
         live = false
     }
 
-    @context {
-        node = ${this.node}
-        properties = ${this.properties}
-        needAllProperties = ${this.needAllProperties}
-        context = ${this.context}
-    }
+    needAllProperties = ${this.operator == 'and' || this.operator == '&&' ? true : false}
 
-    @ignoreProperties = ${['node','properties','operator','needAllProperties','context']}
-
-    correctContext {
-        condition = ${(context.live && node.context.live) || (context.backend && node.context.inBackend)}
-        renderer = true
-    }
-    hasProperties {
-        condition = ${Type.isString(properties)}
-        renderer = Neos.Fusion:Value {
-            array = Neos.Fusion:RawCollection {
-                collection = ${String.split(String.replace(properties, ' ', ''), ',')}
-                itemRenderer = ${q(node).property(item)}
-                itemRenderer.@process {
-                    trimIfString = ${Type.isString(value) ? String.trim(String.replace(String.stripTags(value), '&nbsp;', '')) : value}
-                    returnBool = ${value ? true : false}
-                }
-            }
-            value = ${needAllProperties ? Array.indexOf(this.array, false) == -1 : Array.indexOf(this.array, true) != -1}
+    renderer = Neos.Fusion:Case {
+        correctContext {
+            condition = ${(props.context.live && props.node.context.live) || (props.context.backend && props.node.context.inBackend)}
+            renderer = true
         }
-    }
-    default {
-        condition = true
-        renderer = false
+        hasProperties {
+            condition = ${Type.isString(props.properties)}
+            renderer = Neos.Fusion:Value {
+                array = Neos.Fusion:Map {
+                    items = ${String.split(String.replace(props.properties, ' ', ''), ',')}
+                    itemRenderer = ${q(props.node).property(item)}
+                    itemRenderer.@process {
+                        trimIfString = ${Type.isString(value) ? String.trim(String.replace(String.stripTags(value), '&nbsp;', '')) : value}
+                        returnBool = ${value ? true : false}
+                    }
+                }
+                value = ${props.needAllProperties ? Array.indexOf(this.array, false) == -1 : Array.indexOf(this.array, true) != -1}
+            }
+        }
+        default {
+            condition = true
+            renderer = false
+        }
     }
 }

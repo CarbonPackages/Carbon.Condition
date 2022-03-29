@@ -1,56 +1,48 @@
 // Return true if a content element or a node type definition is on a document
 
-prototype(Carbon.Condition:Case) <  prototype(Neos.Fusion:Case) {
+prototype(Carbon.Condition:Case)  < prototype(Neos.Fusion:Component) {
     node = ${documentNode}
 
     enabled = true
 
-    content = Neos.Fusion:RawArray {
+    content = Neos.Fusion:DataStructure {
         collection = '[instanceof Neos.Neos:ContentCollection]'
         nodeType = null
         propertyFilter = ''
         filter = ${this.nodeType ? ('[instanceof ' + this.nodeType + ']' + this.propertyFilter) : null}
     }
 
-    document = Neos.Fusion:RawArray {
+    document = Neos.Fusion:DataStructure {
         nodeType = null
         propertyFilter = ''
         filter = ${this.nodeType ? ('[instanceof ' + this.nodeType + ']' + this.propertyFilter) : null}
     }
 
-    context = Neos.Fusion:RawArray {
+    context = Neos.Fusion:DataStructure {
         backend = true
         live = false
     }
 
-    @context {
-        node = ${this.node}
-        enabled = ${this.enabled}
-        content = ${this.content}
-        document = ${this.document}
-        context = ${this.context}
-    }
-
-    @ignoreProperties = ${['node','enabled','content','document','context']}
-
-    isNotEnabled {
-        condition = ${enabled == false}
-        renderer = false
-    }
-    onContent {
-        condition = ${content.filter && content.collection && q(node).children(content.collection).find(content.filter).is()}
-        renderer = true
-    }
-    onDocument {
-        condition = ${document.filter && q(node).filter(document.filter).is()}
-        renderer = true
-    }
-    correctContext {
-        condition = ${(context.live && node.context.live) || (context.backend && node.context.inBackend)}
-        renderer = true
-    }
-    default {
-        condition = true
-        renderer = false
+    renderer = Neos.Fusion:Case {
+        isNotEnabled {
+            condition = ${props.enabled == false}
+            renderer = false
+        }
+        onContent {
+            condition = ${props.content.filter && props.content.collection && q(props.node).children(props.content.collection).find(props.content.filter).is()}
+            renderer = true
+        }
+        onDocument {
+            condition = ${props.document.filter && q(props.node).filter(props.document.filter).is()}
+            renderer = true
+        }
+        correctContext {
+            condition = ${(props.context.live && props.node.context.live) || (props.context.backend && props.node.context.inBackend)}
+            renderer = true
+        }
+        default {
+            condition = true
+            renderer = false
+        }
     }
 }
