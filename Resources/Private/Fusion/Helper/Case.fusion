@@ -37,7 +37,7 @@ prototype(Carbon.Condition:Case)  < prototype(Neos.Fusion:Component) {
             renderer = true
         }
         correctContext {
-            condition = ${(props.context.live && props.node.context.live) || (props.context.backend && props.node.context.inBackend)}
+            condition = ${(props.context.live && !renderingMode.isEdit) || (props.context.backend && renderingMode.isEdit)}
             renderer = true
         }
         default {
